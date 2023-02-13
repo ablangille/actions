@@ -68,16 +68,14 @@ runs:
       shell: bash
 
     - name: Restore
+      working-directory: ${{ inputs.workdir_src }}
       run: dotnet restore
       shell: bash
-      with:
-        path: ${{ inputs.workdir_src }}
 
     - name: Build
+      working-directory: ${{ inputs.workdir_src }}
       run: dotnet build
       shell: bash
-      with:
-        path: ${{ inputs.workdir_src }}
 
     - name: Test
       env:
