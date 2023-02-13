@@ -77,7 +77,8 @@ runs:
       run: dotnet build
       shell: bash
 
-    - name: Sonarqube end
+    - name: Sonarqube End
+      working-directory: ${{ inputs.workdir_src }}
       run: dotnet sonarscanner end -d:sonar.login="${{ inputs.sonar_token }}"
       shell: bash
       env:
