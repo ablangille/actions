@@ -56,10 +56,11 @@ runs:
       id: cache-sonar-scanner
       uses: actions/cache@v1
       with:
-        path: .\.sonar\scanner
+        path: ${{ inputs.workdir_src }}\.sonar\scanner
         key: ${{ runner.os }}-sonar-scanner
         restore-keys: ${{ runner.os }}-sonar-scanner
     - name: Sonarqube Begin
+      working-directory: ${{ inputs.workdir_src }}
       run: |
         dotnet nuget locals -c all
         dotnet nuget add source https://nuget.pkg.github.com/architecture-it/index.json --name github -u ${{ inputs.github_username }} -p ${{ inputs.github_token }} --store-password-in-clear-text
