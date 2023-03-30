@@ -72,8 +72,9 @@ runs:
       working-directory: ${{ inputs.workdir_src }}
       run: |
         git submodule init
-        git config submodule.DMS.Pickup.Commons.url https://ablangille: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@github.com/operations-innovation/DMS.Pickup.Commons.git
+        git submodule set-url DMS.Pickup.Commons https://ablangille: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@github.com/operations-innovation/DMS.Pickup.Commons.git
         git submodule update --recursive --remote
+        git restore .gitmodules
       shell: bash
 
     - name: Restore
