@@ -77,8 +77,8 @@ runs:
       run: |
         git submodule init
         for i in ${{ submodule_urls }}; do
-          echo "$i[name]"
-          git config submodule.$i[name].url $i[url]
+          echo "$i[name]";
+          git config submodule.$i[name].url $i[url];
         done
         git submodule update --recursive --remote
       shell: bash
