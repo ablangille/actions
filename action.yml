@@ -76,7 +76,7 @@ runs:
       working-directory: ${{ inputs.workdir_src }}
       run: |
         git submodule init
-        for i in ${{ submodule_urls }}; do
+        for i in ${{ inputs.submodule_urls }}; do
           echo "$i[name]";
           git config submodule.$i[name].url $i[url];
         done
