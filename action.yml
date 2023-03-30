@@ -27,6 +27,10 @@ inputs:
   sonar_custom:
     decription: "config sonar custom"
     default: ""
+  submodule_url:
+    decription: "Git submodule url with credentials"
+    required: true
+
 runs:
   using: "composite"
   steps:
@@ -72,9 +76,8 @@ runs:
       working-directory: ${{ inputs.workdir_src }}
       run: |
         git submodule init
-        git submodule set-url DMS.Pickup.Commons https://ablangille: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@github.com/operations-innovation/DMS.Pickup.Commons.git
+        git config submodule.DMS.Pickup.Commons.url ${{ inputs.submodule_url }}
         git submodule update --recursive --remote
-        git restore .gitmodules
       shell: bash
 
     - name: Restore
