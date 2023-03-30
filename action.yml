@@ -30,6 +30,9 @@ inputs:
   submodule_urls:
     decription: "Git submodule urls with credentials"
     required: true
+  submodule_names:
+    decription: "Git submodule names"
+    required: true
 
 runs:
   using: "composite"
@@ -73,14 +76,15 @@ runs:
       shell: bash
 
     - name: Pull submodules
+      strategy:
+        matrix:
+          submoule_name: ${{ inputs.submodule_names }}
+          submodule_url: ${{ inputs.submodule_urls }}
       working-directory: ${{ inputs.workdir_src }}
       run: |
-        git submodule init
-        for i in ${{ inputs.submodule_urls }}; do
-          echo "$i[name]";
-          git config submodule.$i[name].url $i[url];
-        done
-        git submodule update --recursive --remote
+        git submodule init ${{ matrix.submodule_name }}
+        git config submodule.${{ matrix.submodule_name }}.url ${{ matrix.submodule_url }}
+        git submodule update --recursive --remote ${{ matrix.submodule_name }}
       shell: bash
 
     - name: Restore
