@@ -37,6 +37,18 @@ runs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
+          
+       - name: Submodule init
+        with:
+          path: ${{ inputs.workdir_src }}
+        run: git submodule init
+        shell: bash
+        
+       - name: Submodule update
+        with:
+          path: ${{ inputs.workdir_src }}
+        run: git submodule update --recursive --remote
+        shell: bash
       
       - name: Setup dotnet
         uses: actions/setup-dotnet@v1
@@ -65,18 +77,6 @@ runs:
           dotnet nuget add source https://nuget.pkg.github.com/architecture-it/index.json --name github -u ${{ inputs.github_username }} -p ${{ inputs.github_token }} --store-password-in-clear-text
           dotnet tool install --global dotnet-sonarscanner
           dotnet sonarscanner begin /key:"${{ inputs.sonar_key }}" -d:sonar.login="${{ inputs.sonar_token }}" -d:sonar.host.url="${{ inputs.sonar_url }}" -d:sonar.cs.vstest.reportsPaths=**/*.trx -d:sonar.cs.opencover.reportsPaths=**/coverage.opencover.xml ${{ inputs.sonar_custom}}
-        shell: bash
-        
-      - name: Submodule init
-        with:
-          path: ${{ inputs.workdir_src }}
-        run: git submodule init
-        shell: bash
-        
-       - name: Submodule update
-        with:
-          path: ${{ inputs.workdir_src }}
-        run: git submodule update --recursive --remote
         shell: bash
 
       - name: Restore 
