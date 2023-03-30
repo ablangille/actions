@@ -40,6 +40,9 @@ inputs:
   submodule_urls:
     decription: "submodule urls with credentials"
     required: true
+  submodule_names:
+    decription: "submodule names"
+    required: true
 runs:
   using: "composite"
   steps:
@@ -73,6 +76,7 @@ runs:
           workdir_src: ${{ inputs.workdir_src }}
           workdir_test: ${{ inputs.workdir_test }}
           submodule_urls: ${{ inputs.submodule_urls }}
+          submodule_names: ${{ inputs.submodule_names }}
         if: ${{ inputs.sonar_code == '.Net' }}
 
       - name: Setup Go Analyzer
