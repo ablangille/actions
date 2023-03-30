@@ -68,6 +68,13 @@ runs:
         dotnet sonarscanner begin /key:"${{ inputs.sonar_key }}" -d:sonar.login="${{ inputs.sonar_token }}" -d:sonar.host.url="${{ inputs.sonar_url }}" -d:sonar.cs.vstest.reportsPaths=**/*.trx -d:sonar.cs.opencover.reportsPaths=**/coverage.opencover.xml ${{ inputs.sonar_custom}}
       shell: bash
 
+    - name: Pull submodules
+      working-directory: ${{ inputs.workdir_src }}
+      run: |
+        git submodule init
+        git submodule update --recursive --remote
+      shell: bash
+
     - name: Restore
       working-directory: ${{ inputs.workdir_src }}
       run: dotnet restore
