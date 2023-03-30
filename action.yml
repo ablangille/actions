@@ -37,8 +37,8 @@ inputs:
   sonar_custom:
     decription: "config sonar custom"
     default: ""
-  submodule_url:
-    decription: "submodule url with credentials"
+  submodule_urls:
+    decription: "submodule urls with credentials"
     required: true
 runs:
   using: "composite"
@@ -72,7 +72,7 @@ runs:
           sonar_custom: ${{ inputs.sonar_custom }}
           workdir_src: ${{ inputs.workdir_src }}
           workdir_test: ${{ inputs.workdir_test }}
-          submodule_url: ${{ inputs.submodule_url }}
+          submodule_urls: ${{ inputs.submodule_urls }}
         if: ${{ inputs.sonar_code == '.Net' }}
 
       - name: Setup Go Analyzer
