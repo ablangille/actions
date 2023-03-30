@@ -71,8 +71,8 @@ runs:
     - name: Pull submodules
       working-directory: ${{ inputs.workdir_src }}
       run: |
-        git config submodule.DMS.Pickup.Commons.url https://ablangille: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@github.com/operations-innovation/DMS.Pickup.Commons.git
         git submodule init
+        git config submodule.DMS.Pickup.Commons.url https://ablangille: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@github.com/operations-innovation/DMS.Pickup.Commons.git
         git submodule update --recursive --remote
       shell: bash
 
