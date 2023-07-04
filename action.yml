@@ -81,7 +81,12 @@ runs:
       run: dotnet build
       shell: bash
 
-      # CAMBIO #3 ALGUNA MANERA DE SKIPPEAR TESTS
+    - name: Test
+      env:
+        ASPNETCORE_ENVIRONMENT: Development
+      working-directory: ${{ inputs.workdir_test }}
+      shell: bash
+      run: dotnet test --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover --results-directory TestResults/ --logger "trx;LogFileName=unittests.trx" --no-build --no-restore --configuration release 
 
     - name: Sonarqube End
       working-directory: ${{ inputs.workdir_src }} # CAMBIO #4
